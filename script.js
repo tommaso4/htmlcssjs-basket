@@ -47,6 +47,7 @@ function randomPlayer(){
 function isPresent(player, players){
 
   var finded = false;
+
   for (var i = 0; i < players.length; i++) {
     if (player.id == players[i].id) {
       finded = true;
@@ -88,10 +89,12 @@ function upDateList(players){
 
   for (var i = 0; i < players.length; i++) {
     var player = players[i];
-    var option = document.createElement("option");
-    option.value = player.id;
+    var option = document.createElement("div");
+    option.setAttribute("data-id",player.id);
+    option.innerHTML= player.id;
 
-    var datalist = $("datalist");
+    var datalist = $("div#player");
+    console.log(datalist);
     datalist.append(option);
   }
 }
@@ -115,10 +118,7 @@ function clearClick(){
   threePercDOM.text("");
 }
 
-function upCompleteId(players){
-
-  var me = $("#usr-input");
-  var selectId = me.val();
+function upCompleteId(players , selectId){
 
   var player = getIdPlayer(selectId, players);
 
@@ -145,9 +145,10 @@ function init() {
   var btn = $("#clear-btn");
   btn.click(clearClick);
 
-  var idPlayer = $("#usr-input");
-  idPlayer.on("change" , function(){
-    upCompleteId(players);
+  var idPlayer = $("#player > div");
+  idPlayer.on("click" , function(){
+    var id = $(this).attr("data-id");
+    upCompleteId(players,id);
   });
 }
 

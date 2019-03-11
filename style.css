@@ -3,10 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .margin-horiz-auto {
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+
 }
+
 .container {
   display: flex;
   align-items: flex-start;
@@ -14,14 +17,51 @@
   width: 100vw;
   height: 100vh;
   padding: 50px;
-  background: #dedede;
+  background-image: url("https://besthqwallpapers.com/img/original/48943/lebron-james-match-basketball-stars-nba-basketball.jpg");
 }
+
+.container h1 {
+  color: orange;
+  margin: auto;
+}
+
+#clear-btn {
+  margin: auto;
+  background: orange;
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 45px;
+  width: 100px;
+  margin-top: 40px;
+}
+
 .input-container {
+  margin-left: 200px;
   padding: 100px 0;
+  height: 100vh;
 }
-.input-container > * {
-  margin: 0 .5rem;
-}
+
 .player-wrapper {
   padding-top: 30px;
+  color: #59ff4f;
+  font-size: 30px;
+  margin-left: 200px;
+}
+
+.content {
+  color: orange;
+}
+
+#player {
+  position: absolute;
+  top: 50px;
+  left: 300px;
+  background: rgba(150, 150, 150, 0.2);
+  color: white;
+}
+
+#player div {
+  padding: 13px;
+  cursor: pointer;
+  font-size: 30px;
 }
