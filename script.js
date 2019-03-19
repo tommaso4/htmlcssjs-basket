@@ -1,3 +1,23 @@
+var players;
+
+function ajax (){
+
+
+  $.ajax({
+
+    url : "https://www.boolean.careers/api/array/basket?n=10",
+    method: "GET",
+    success: function(data, state){
+
+      if (data.success) {
+        players = data.response;
+        upDateList(players);
+      }
+    },
+    error: function(){
+    }
+  })
+}
 
 function random(min, max){
   return Math.floor(Math.random()*(max - min)) + min;
@@ -62,7 +82,7 @@ function getIdPlayer(id, players){
 
   for (var i = 0; i < players.length; i++) {
 
-    if (players[i].id == id) {
+    if (players[i].playerCode == id) {
 
       player = players[i];
     }
@@ -71,7 +91,6 @@ function getIdPlayer(id, players){
 }
 
 function getRandomPlayers(){
-  var players = [];
 
   while (players.length < 10) {
 
@@ -90,11 +109,10 @@ function upDateList(players){
   for (var i = 0; i < players.length; i++) {
     var player = players[i];
     var option = document.createElement("div");
-    option.setAttribute("data-id",player.id);
-    option.innerHTML= player.id;
+    option.setAttribute("data-id",player.playerCode);
+    option.innerHTML= player.playerCode;
 
     var datalist = $("div#player");
-    console.log(datalist);
     datalist.append(option);
   }
 }
@@ -119,7 +137,6 @@ function clearClick(){
 }
 
 function upCompleteId(players , selectId){
-
   var player = getIdPlayer(selectId, players);
 
   var  idDOM = $("#id > span.content");
@@ -129,27 +146,26 @@ function upCompleteId(players , selectId){
   var  twoPercDOM = $("#twoPerc > span.content");
   var  threePercDOM = $("#threePerc > span.content");
 
-  idDOM.text(player.id);
+  idDOM.text(player.playerCode);
   pointsDOM.text(player.points);
-  bounceDOM.text(player.bounce);
-  mistakeDOM.text(player.mistake);
-  twoPercDOM.text(player.twoPerc + "%");
-  threePercDOM.text(player.threePerc + "%");
+  bounceDOM.text(player.rebounds);
+  mistakeDOM.text(player.fouls);
+  twoPercDOM.text(player.twoPoints + "%");
+  threePercDOM.text(player.threePoints + "%");
 }
 
 
 function init() {
-  var players = getRandomPlayers();
-  upDateList(players);
+  ajax();
 
   var btn = $("#clear-btn");
   btn.click(clearClick);
 
-  var idPlayer = $("#player > div");
-  idPlayer.on("click" , function(){
+  $(document).on("click", "#player > div", function() {
     var id = $(this).attr("data-id");
     upCompleteId(players,id);
-  });
+  })
+
 }
 
 $(document).ready(init);
